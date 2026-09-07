@@ -1,0 +1,28 @@
+[project]
+name = "financial-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "faiss-cpu>=1.15.0",
+    "ipykernel>=7.3.0",
+    "jupyter>=1.1.1",
+    "langchain>=1.4.0",
+    "langchain-text-splitters>=1.1.2",
+    "numpy>=2.5.2",
+    "openpyxl>=3.1.5",
+    "pandas>=3.0.5",
+    "pymupdf>=1.28.2",
+    "python-docx>=1.2.0",
+    "sentence-transformers>=6.0.1",
+    "tqdm>=4.70.0",
+    "xlrd>=2.0.2",
+]
+
+[project.scripts]
+financial-rag = "financial_rag:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
