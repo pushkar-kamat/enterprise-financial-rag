@@ -1,15 +1,8 @@
-from sentence_transformers import SentenceTransformer
-
+from financial_rag.embeddings.model import embedding_model
 from financial_rag.llm.router import generate_response
 from financial_rag.cache.cache import get_cached_answer, save_answer
 from financial_rag.vectorstore.qdrant import qdrant_client, COLLECTION_NAME
 
-
-
-# --> Load embedding model
-
-EMBEDDING_MODEL_NAME = "BAAI/bge-large-en-v1.5"
-embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
 
 
 

@@ -1,17 +1,13 @@
 from pathlib import Path
 import uuid
 
-from sentence_transformers import SentenceTransformer
+from financial_rag.embeddings.model import embedding_model
 from qdrant_client.models import PointStruct
 
 from financial_rag.ingestion.loaders import load_document
 from financial_rag.rag.chunker import chunk_records
 from financial_rag.vectorstore.qdrant import qdrant_client, COLLECTION_NAME
 
-
-
-EMBEDDING_MODEL_NAME = "BAAI/bge-large-en-v1.5"
-embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
 
 
 def ingest_document(file_path: Path):

@@ -4,8 +4,17 @@ __pycache__/
 build/
 dist/
 wheels/
-*.egg-info
+*.egg-info/
 
 # Virtual environments
-.venv
+.venv/
+
+# Environment variables
 .env
+
+# Runtime data
+data/processed/cache/
+data/processed/vector_store/
+
+# Local uploaded/generated data
+data/raw/
