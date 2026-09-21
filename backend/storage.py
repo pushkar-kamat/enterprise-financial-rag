@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import boto3
@@ -11,6 +12,28 @@ S3_BUCKET_NAME = settings.s3_bucket_name
 
 
 def get_s3_client():
+    """
+    Create an S3 client.
+
+    Local development:
+        Uses the configured AWS SSO profile.
+
+    Production:
+        Uses AWS credentials supplied through environment variables.
+    """
+    aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
+    aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+    aws_session_token = os.getenv("AWS_SESSION_TOKEN")
+
+    if aws_access_key_id and aws_secret_access_key:
+        return boto3.client(
+            "s3",
+            region_name=settings.aws_region,
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key,
+            aws_session_token=aws_session_token,
+        )
+
     session = boto3.Session(
         profile_name="NorthstarAdmin-737892386191",
         region_name=settings.aws_region,
@@ -43,6 +66,24 @@ def upload_file(
         S3_BUCKET_NAME,
         storage_key,
         ExtraArgs=extra_args or None,
+    )
+
+
+def download_file(
+    storage_key: str,
+    file_path: Path,
+) -> None:
+    """
+    Download a file from the Northstar S3 bucket.
+    """
+
+    file_path = Path(file_path)
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+
+    get_s3_client().download_file(
+        S3_BUCKET_NAME,
+        storage_key,
+        str(file_path),
     )
 
 

@@ -11,7 +11,7 @@ from qdrant_client.models import (
 
 load_dotenv()
 
-COLLECTION_NAME = "financial_policies"
+COLLECTION_NAME = "financial_policies_bge_base"
 
 QDRANT_URL = os.getenv("QDRANT_URL")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
