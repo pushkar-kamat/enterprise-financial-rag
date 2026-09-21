@@ -1,10 +1,7 @@
+from financial_rag.cache.cache import get_cached_answer, save_answer
 from financial_rag.embeddings.model import embedding_model
 from financial_rag.llm.router import generate_response
-from financial_rag.cache.cache import get_cached_answer, save_answer
-from financial_rag.vectorstore.qdrant import qdrant_client, COLLECTION_NAME
-
-
-
+from financial_rag.vectorstore.qdrant import COLLECTION_NAME, qdrant_client
 
 # --> Retrieval
 
@@ -66,6 +63,17 @@ Rules:
 5. Preserve exact monetary amounts, thresholds, authority levels, and conditions.
 6. Give a concise explanation.
 7. Cite the relevant source document and section in your answer.
+8. When the answer compares multiple items, categories, values, requirements, thresholds, dates, frequencies, or other structured information, use a Markdown table when it improves clarity.
+9. Do not use a table when the information is better explained as normal prose or bullet points.
+10. Use standard GitHub-flavored Markdown table syntax.
+
+Example of appropriate table formatting:
+
+| Risk Level | KYC Refresh |
+|---|---:|
+| High | Every 12 months |
+| Medium | Every 36 months |
+| Low | Every 60 months |
 
 POLICY CONTEXT:
 ----------------
@@ -77,8 +85,6 @@ USER QUESTION:
 
 ANSWER:
 """
-
-
 # --> Complete RAG + Cache pipeline
 
 def answer_question(question, top_k=5):
